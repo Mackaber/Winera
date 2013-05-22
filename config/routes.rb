@@ -1,9 +1,15 @@
 Winera::Application.routes.draw do
   get "main/index"
 
-  match 'auth/:provider/callback', to: 'sessions#create'
-  match 'auth/failure', to: redirect('/')
-  match 'signout', to: 'sessions#destroy', as: 'signout'
+  #match 'auth/:provider/callback', to: 'sessions#create'
+  #match 'auth/failure', to: redirect('/')
+  #match 'signout', to: 'sessions#destroy', as: 'signout'
+
+  devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks", restrations: "registrations"} do
+    get '/users/sign_in' => 'devise/sessions#create'
+    get '/users/sign_out' => 'devise/sessions#destroy'
+    #match '/referer/:ref_id'  => 'registrations#new'
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

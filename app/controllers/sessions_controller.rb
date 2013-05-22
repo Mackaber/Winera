@@ -1,9 +1,12 @@
 class SessionsController < ApplicationController
 
+  def new
+
+  end
+
   def create
     user = User.from_omniauth(env["omniauth.auth"])
     session[:user_id] = user.id
-    #raise request.env["omniauth.auth"].to_yaml
     redirect_to root_url
   end
 
@@ -12,5 +15,8 @@ class SessionsController < ApplicationController
     redirect_to root_url
   end
 
-end
+  def failure
+    redirect_to root_url, alert: "Authentication failed, please try again."
+  end
 
+end

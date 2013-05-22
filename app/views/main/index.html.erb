@@ -3,8 +3,11 @@
 <% if current_user %>
     <p>Bienvenido <strong><%= current_user.name %></strong></p>
     <%= link_to image_tag(current_user.image, :border => 0) %>
-    <%= link_to "Salir", signout_path, id: "sign_out" %>
+    <li><%= link_to "Cerrar Sesion", destroy_user_session_path, method: :delete %></li>
 <% else %>
-    <a href='auth/facebook'><button class='zocial facebook' style="font-size: 13px;">Registrate con Facebook</button></a>
+    <a href="users/auth/facebook">
+      <button class="zocial facebook" style="font-size: 13px;">
+        Registrate con Facebook
+      </button></a>
     Para comenzar
 <% end %>
