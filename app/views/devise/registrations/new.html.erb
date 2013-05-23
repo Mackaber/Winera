@@ -1,18 +1,31 @@
-<h2>Sign up</h2>
-
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+    <%= devise_error_messages! %>
+    <div style="min-width: 200px;">
+      <div class="field">
+        <%= f.label :name, "Usuario", :class => "span5" %>
+        <%= f.text_field :name, :class => "offset1 span7" %>
+      </div>
+      <div class="field">
+        <%= f.label :email, "Email", :class => "span5" %>
+        <%= f.text_field :email, :class => "offset1 span7" %>
+      </div>
+      <!-- Poner un campo para el código de la tarjeta -->
+      <div class="field">
+        <%= f.label :password, "Contraseña", :class => "span5" %>
+        <%= f.password_field :password, :class => "offset1 span7" %>
+      </div>
+      <div class="field">
+        <%= f.label :password_confirmation, "Confirmar Contraseña", :class => "span5" %>
+        <%= f.password_field :password_confirmation, :class => "offset1 span7" %>
+      </div>
+      <!-- Campo para el numero de usario de la tarjeta -->
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
-
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
-
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
-
-  <div><%= f.submit "Sign up" %></div>
+      <% if @referer %>
+          <%= f. hidden_field( :referencer_id, :value => @referer.id ) %>
+          <%= f. hidden_field( :referenced, :value => true ) %>
+      <% end %>
+      <div class="actions">
+        <%= f.submit "Registrar", :class => "btn" %>
+      </div>
+    </div>
 <% end %>
-
-<%= render "devise/shared/links" %>

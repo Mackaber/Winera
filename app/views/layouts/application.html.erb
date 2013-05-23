@@ -7,8 +7,51 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class="navbar navbar-inverse">
+  <div class="navbar-inner">
+    <!-- <a class="brand" href="/">Social Cupon</a> -->
+    <%= link_to image_tag("winera_simbolo.png", :class => "brand", :style => "width:65px;"), "/"%>
+    <%= link_to image_tag("winera_logo.png", :class => "brand", :style => "width:180px; margin-top:5px"), "/"%>
+    <% if current_user %>
+        <ul class="nav pull-right">
+          <li id="fat-menu" class="dropdown">
+            <a href="#" id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown" style="margin-top: 20px;font-size: 44px;">
+              <%= current_user.name %> &nbsp; <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="drop1">
+              <li><%= link_to "Cerrar Sesion", destroy_user_session_path, method: :delete %></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav pull-right">
+          <li id="fat-menu" class="dropdown">
+            <a href="#" id="drop2" role="button">
+            </a>
+          </li>
+        </ul>
+    <% else %>
+        <%= form_for(resource,
+                     :as => resource_name,
+                     :url => session_path(resource_name),
+                     :html => { :class => "navbar-form form-inline pull-right",:style => "margin:20px 20px;"
+                     }) do |f| %>
+            <%= devise_error_messages! %>
+            <%= f.text_field :email, :class => "input-small", :placeholder=> "Email" %>
+            <%= f.password_field :password, :class => "input-small" , :placeholder=> "Contraseña" %>
 
-<%= yield %>
+            <% if devise_mapping.rememberable? -%>
+                <%= f.label :remember_me, "Recordarme", :class => "checkbox" %>
+                <%= f.check_box :remember_me %>
+                <%= f.submit "Entrar", :class => "btn" %>
+            <% end %>
+        <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="container-fluid">
+    <%= yield %>
+</div>
 
 </body>
 </html>
