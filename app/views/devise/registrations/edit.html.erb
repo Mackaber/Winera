@@ -27,7 +27,7 @@
           </div>
           <div class="field">
             <%= f.label :birthday, "Fecha de Nacimiento", :class => "span3" %>
-            <%= f.date_select(:birthday,{:start_year =>qa 1940, :end_year => 2001},{ :style => "width:70px;",:value => current_user.birthday}) %>
+            <%= f.date_select(:birthday,{:start_year => 1940, :end_year => 2001},{ :style => "width:70px;",:value => current_user.birthday}) %>
           </div>
           <div class="field">
             <%= f.label :streetadr, "Dirección", :class => "span3" %>
