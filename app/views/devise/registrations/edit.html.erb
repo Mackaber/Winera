@@ -1,34 +1,79 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="hero-unit">
+    <!--<h2>Edit <%= resource_name.to_s.humanize %></h2>-->
+    <h2>Editar Perfil de Usuario</h2>
+    <div>
+        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+          <%= devise_error_messages! %>
+          <%= flash[:notice] %>
+          <br>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
+          <div class="field">
+            <%= f.label :email, "Email", :class => "span3" %>
+            <%= f.email_field :email, :autofocus => true, :class => "span3", :placeholder => "cosme@mai.com" %>
+          </div>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+          <!--Campos para llenar-->
+          <div class="field">
+            <%= f.label :name, "Nombre", :class => "span3" %>
+            <%= f.text_field :name, :value => current_user.name, :class => "span3",:placeholder => "Cosme" %>
+          </div>
+          <div class="field">
+            <%= f.label :last_name, "Apellido", :class => "span3" %>
+            <%= f.text_field :last_name, :value => current_user.last_name, :class => "span3", :placeholder => "Fulanito" %>
+          </div>
+          <div class="field">
+            <%= f.label :phone, "Teléfono", :class => "span3" %>
+            <%= f.text_field :phone, :value => current_user.phone, :class => "span3", :placeholder => "0-00-00-00" %>
+          </div>
+          <div class="field">
+            <%= f.label :birthday, "Fecha de Nacimiento", :class => "span3" %>
+            <%= f.date_select(:birthday,{:start_year =>qa 1940, :end_year => 2001},{ :style => "width:70px;",:value => current_user.birthday}) %>
+          </div>
+          <div class="field">
+            <%= f.label :streetadr, "Dirección", :class => "span3" %>
+            <%= f.text_area :streetadr, :value => current_user.streetadr, :class => "span3", :placeholder => "Calle Ejemplo #000-A \n Col. Ejemplo", :rows => "2" %>
+          </div>
+          <div class="field">
+            <%= f.label :city_state, "Ciudad y Estado", :class => "span3" %>
+            <%= f.text_field :city_state, :value => current_user.city_state, :class => "span3", :placeholder => "Ciudad, Estado"%>
+          </div>
+          <div class="field">
+            <%= f.label :zipcode, "Código Postal", :class => "span3" %>
+            <%= f.text_field :zipcode, :value => current_user.zipcode, :class => "span3", :placeholder => "00000" %>
+          </div>
+          <div class="field">
+            <%= f.label :sex, "Género", :class => "span3" %>
+            <%= f.select :sex, options_for_select([["Hombre", "male"], ["Mujer", "female"]],:selected => current_user.sex), :class => "edit-select span3" %>
+          </div>
 
-  <div>
-    <%= f.text_field :name, :value => current_user.name %>
-  </div>
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+          <% end %>
 
+          <% if !(current_user.provider == "facebook") %>
+              <div class="field">
+                <%= f.label :password, "Contraseña (Déjalo en blanco si no quieres cambiarla)",:class => "span3" %>
+                <%= f.password_field :password, :autocomplete => "off", :class => "span3" %>
+              </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+              <div class="field">
+                <%= f.label :password_confirmation, "Confirma tu contraseña", :class => "span3" %>
+                <%= f.password_field :password_confirmation, :class => "span3" %>
+              </div>
 
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password, :autocomplete => "off" %></div>
+              <div class="field">
+                <%= f.label :current_password, "Contraseña actual (Tu contraseña es necesaria para confirmar los cambios)", :class => "span3" %>
+                <%= f.password_field :current_password, :class => "span3" %>
+              </div>
+          <% end %>
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
+          <div><%= f.submit "Actualizar mi Información", :class => "btn" %></div>
+        <% end %>
+    </div>
 
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></div>
+    <h3>Cancel my account</h3>
 
-  <div><%= f.submit "Update" %></div>
-<% end %>
+    <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
 
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
-
-<%= link_to "Back", :back %>
+    <%= link_to "Back", :back %>
+</div>

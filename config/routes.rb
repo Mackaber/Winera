@@ -5,7 +5,7 @@ Winera::Application.routes.draw do
   #match 'auth/failure', to: redirect('/')
   #match 'signout', to: 'sessions#destroy', as: 'signout'
 
-  devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks", restrations: "registrations"} do
+  devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks", registrations: "registrations"} do
     get '/users/sign_in' => 'devise/sessions#create'
     get '/users/sign_out' => 'devise/sessions#destroy'
     #match '/referer/:ref_id'  => 'registrations#new'
