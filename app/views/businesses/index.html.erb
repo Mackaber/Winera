@@ -1,0 +1,46 @@
+<h1>Listing businesses</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Image</th>
+    <th>Phone</th>
+    <th>Description</th>
+    <th>Category</th>
+    <th>User</th>
+    <th>Streetadr</th>
+    <th>Lat</th>
+    <th>Long</th>
+    <th>Schedule</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @businesses.each do |business| %>
+  <tr>
+    <td><%= business.name %></td>
+    <td><%= business.image %></td>
+    <td><%= business.phone %></td>
+    <td><%= business.description %></td>
+    <td><%= business.category %></td>
+    <td><%= business.user %></td>
+    <td><%= business.streetadr %></td>
+    <td><%= business.lat %></td>
+    <td><%= business.long %></td>
+    <td><%= business.schedule %></td>
+    <td><%= link_to 'Show', business %></td>
+    <% if can? :manage, business %>
+        <td><%= link_to 'Edit', edit_business_path(business) %></td>
+        <td><%= link_to 'Destroy', business, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+<% @businesses.each do |b| %>
+    <div class="well well-small">
+        <%= link_to b.name, b %>
+    </div>
+<% end %>
+
+<%= link_to 'Registrar Nueva Empresa', new_business_path %>

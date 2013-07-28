@@ -1,0 +1,47 @@
+<!--TODO: Añadir Cloudinary para subir fotos de los negocios-->
+
+<%= form_for(@business) do |f| %>
+  <% if @business.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@business.errors.count, "error") %> prohibited this business from being saved:</h2>
+
+      <ul>
+      <% @business.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name, "Nombre" %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :image %><br />
+    <%= f.text_field :image %>
+  </div>
+  <div class="field">
+    <%= f.label :phone, "Teléfono" %><br />
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :description, "Descripción" %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :category, "Categoría" %><br />
+    <%= f.text_field :category %>
+  </div>
+  <div class="field">
+    <%= f.label :streetadr, "Dirección" %><br />
+    <%= f.text_field :streetadr %>
+  </div>
+  <div class="field">
+    <%= f.label :schedule, "Horario" %><br />
+    <%= f.text_area :schedule %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

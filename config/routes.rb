@@ -1,4 +1,6 @@
 Winera::Application.routes.draw do
+  resources :businesses
+
   get "main/index"
 
   #match 'auth/:provider/callback', to: 'sessions#create'
