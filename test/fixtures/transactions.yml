@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  points_type: MyString
+  points_bef: 9.99
+  points_aft: MyString
+  user: 
+  card: 
+  business: 
+
+two:
+  points_type: MyString
+  points_bef: 9.99
+  points_aft: MyString
+  user: 
+  card: 
+  business: 

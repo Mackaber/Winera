@@ -1,0 +1,7 @@
+<%= form_tag("/card/confirm", method: "post") do %>
+    <%= label_tag(:total, "Código de Tarjeta") %>
+    <%= label_tag(:card_code, @code) %>
+    <%= label_tag(:total, "$ Total") %>
+    <%= label_tag(:total,@total) %>
+    <%= submit_tag("Usar puntos Era") %>
+<% end %>

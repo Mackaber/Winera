@@ -14,7 +14,10 @@ class BusinessesController < ApplicationController
   # GET /businesses/1.json
   def show
     @business = Business.find(params[:id])
-
+    #session[:current_business] = @business.id
+    #logger.info("------------------------")
+    #logger.info(session[:current_business])
+    #logger.info("------------------------")
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @business }
@@ -80,4 +83,5 @@ class BusinessesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 end

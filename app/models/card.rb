@@ -1,4 +1,5 @@
 class Card < ActiveRecord::Base
-  belongs_to :business
-  attr_accessible :code, :era_points
+  belongs_to :user
+  has_many :eras
+  attr_accessible :code
 end

@@ -1,55 +1,17 @@
-<p id="notice"><%= notice %></p>
+<div class="span12">
+    <h2><%= @business.name %></h2>
+</div>
+<div class="row-fluid">
+  <div class="span8">
 
-<p>
-  <b>Name:</b>
-  <%= @business.name %>
-</p>
-
-<p>
-  <b>Image:</b>
-  <%= @business.image %>
-</p>
-
-<p>
-  <b>Phone:</b>
-  <%= @business.phone %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @business.description %>
-</p>
-
-<p>
-  <b>Category:</b>
-  <%= @business.category %>
-</p>
-
-<p>
-  <b>User:</b>
-  <%= @business.user %>
-</p>
-
-<p>
-  <b>Streetadr:</b>
-  <%= @business.streetadr %>
-</p>
-
-<p>
-  <b>Lat:</b>
-  <%= @business.lat %>
-</p>
-
-<p>
-  <b>Long:</b>
-  <%= @business.long %>
-</p>
-
-<p>
-  <b>Schedule:</b>
-  <%= @business.schedule %>
-</p>
-
-
-<%= link_to 'Edit', edit_business_path(@business) %> |
-<%= link_to 'Back', businesses_path %>
+    <h4>Telefono: <%= @business.phone %></h4><br>
+    <h4>Dirección: <%= @business.streetadr %></h4><br>
+    <h4>Descripción:
+      <br>
+      <br>
+      <%= @business.description %>
+    </h4>
+  </div>
+  <%= image_tag @business.image, :class => "span4" %>
+</div>
+<br>

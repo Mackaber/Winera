@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130728014912) do
+ActiveRecord::Schema.define(:version => 20130820173420) do
 
   create_table "businesses", :force => true do |t|
     t.string   "name"
@@ -26,19 +26,46 @@ ActiveRecord::Schema.define(:version => 20130728014912) do
     t.text     "schedule"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.decimal  "percentage"
   end
 
   add_index "businesses", ["user_id"], :name => "index_businesses_on_user_id"
 
   create_table "cards", :force => true do |t|
     t.string   "code"
-    t.decimal  "era_points"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "user_id"
+  end
+
+  add_index "cards", ["user_id"], :name => "index_cards_on_user_id"
+
+  create_table "eras", :force => true do |t|
     t.integer  "business_id"
+    t.decimal  "era_points"
+    t.integer  "card_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "cards", ["business_id"], :name => "index_cards_on_business_id"
+  add_index "eras", ["business_id"], :name => "index_eras_on_business_id"
+  add_index "eras", ["card_id"], :name => "index_eras_on_card_id"
+
+  create_table "transactions", :force => true do |t|
+    t.string   "points_type"
+    t.decimal  "points_bef"
+    t.string   "points_aft"
+    t.integer  "user_id"
+    t.integer  "card_id"
+    t.integer  "business_id"
+    t.decimal  "total"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "transactions", ["business_id"], :name => "index_transactions_on_business_id"
+  add_index "transactions", ["card_id"], :name => "index_transactions_on_card_id"
+  add_index "transactions", ["user_id"], :name => "index_transactions_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"

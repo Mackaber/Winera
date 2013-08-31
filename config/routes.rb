@@ -1,8 +1,20 @@
 Winera::Application.routes.draw do
+  get "/transaction/validate"
+
   resources :businesses
 
-  get "main/index"
+  get "/main/index"
 
+  match "/transaction", to: 'transaction#index'
+  #Despues de encontrar la tarjeta la pone en cards/show
+  match "/transacciones/verificar/:code", to: 'cards#show'
+  match "/card/:code", to: 'cards#show'
+  match "/card", to: 'cards#show'
+
+  match "/card/confirm", to: 'cards#confirm'
+
+
+  match "/transaction/use_era_points", to: 'transaction#use_era_points'
   #match 'auth/:provider/callback', to: 'sessions#create'
   #match 'auth/failure', to: redirect('/')
   #match 'signout', to: 'sessions#destroy', as: 'signout'

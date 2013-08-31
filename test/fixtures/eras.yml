@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  business: 
+  era_points: 9.99
+  card: 
+
+two:
+  business: 
+  era_points: 9.99
+  card: 
