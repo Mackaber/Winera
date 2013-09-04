@@ -7,11 +7,13 @@ Winera::Application.routes.draw do
 
   match "/transaction", to: 'transaction#index'
   #Despues de encontrar la tarjeta la pone en cards/show
-  match "/transacciones/verificar/:code", to: 'cards#show'
-  match "/card/:code", to: 'cards#show'
+  match "/card/confirm", to: 'cards#confirm'
+
+  match "/transacciones/verificar/:card_code", to: 'cards#show'
+  match "/card/:card_code", to: 'cards#show'
   match "/card", to: 'cards#show'
 
-  match "/card/confirm", to: 'cards#confirm'
+
 
 
   match "/transaction/use_era_points", to: 'transaction#use_era_points'

@@ -9,7 +9,8 @@ class ApplicationController < ActionController::Base
   #helper_method :current_user
 
   def after_sign_in_path_for(resource)
-    '/businesses'
+    #Dejar que ese controlador haga la redirección
+    '/main/index'
   end
 
   def set_current_business(biz)

@@ -14,7 +14,7 @@ class BusinessesController < ApplicationController
   # GET /businesses/1.json
   def show
     @business = Business.find(params[:id])
-    #session[:current_business] = @business.id
+    session[:current_business] = @business.id
     #logger.info("------------------------")
     #logger.info(session[:current_business])
     #logger.info("------------------------")

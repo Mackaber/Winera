@@ -13,9 +13,14 @@ class TransactionController < ApplicationController
     @total = params[:total].to_i
     #El user de la transacción es el que administrador del negocio
     @transaction.user = current_user
-    @transaction.total = @total
+    @transaction.total = flash[:total]
     #CHECAR
-    @card = Card.find_by_code(params[:card_id])
+
+    logger.info("----------------")
+    logger.info(session[:current_business])
+    logger.info("----------------")
+
+    @card = Card.find_by_code(flash[:card_code])
     @transaction.card = @card
     @user = @card.user
     #TODO: Cambiar
