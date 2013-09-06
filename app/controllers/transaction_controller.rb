@@ -1,47 +1,41 @@
 class TransactionController < ApplicationController
-
-  #GET Evaluate
-  def index
-    @transaction = Transaction.new
-  end
-
   #POST Validate
   def use_era_points
-    #TODO: Luego cambiar esto por algo más elegante y apropiado
-    @transaction = Transaction.new
+    @code = session[:card_code]
+    @total = session[:total]
 
-    @total = params[:total].to_i
-    #El user de la transacción es el que administrador del negocio
-    @transaction.user = current_user
-    @transaction.total = flash[:total]
-    #CHECAR
+    @card = Card.find_by_code(@code)
 
-    logger.info("----------------")
-    logger.info(session[:current_business])
-    logger.info("----------------")
+    @business = current_user.businesses.first
 
-    @card = Card.find_by_code(flash[:card_code])
-    @transaction.card = @card
-    @user = @card.user
-    #TODO: Cambiar
-    @business = Business.find(session[:current_business])
-    @transaction.business = @business
-    @transaction.points_type = "era"
-    #Busca la era (relación usuario negocio) para abonarle puntos
-    @era = @card.eras.find_by_business_id(@business)
-    @transaction.points_bef = @era.era_points
+    @era = @card.eras.find_by_business_id(@business.id)
     @percentage = @business.percentage
-    #TODO: Preguntar sobre la operación Real
+
+    @d_inicio = @era.era_points                    #Dinero Electrónico al inicio
+
+    if @total >= @d_inicio
+      @d_usado  =  @d_inicio                       #Dinero Electrónico usado
+      @restante =  @total - @d_usado               #Restante por pagar
+    elsif @total < @d_inicio
+      @d_usado  =  @total                          #Dinero Electrónico usado
+      @restante = @d_usado - @total                #Restante por pagar
+    end
+    @generado = @restante*@percentage               #Dinero Electrónico generado
+    @final    = @generado + (@d_inicio - @d_usado) #Dinero Electrónico al final
+
+    @transaction = Transaction.new
+    @transaction.business = @business
+    @transaction.card = @card
+    @transaction.user = @card.user
+    @transaction.points_bef = @d_inicio
+    @transaction.total = @total
+
     respond_to do |format|
-      User.transaction do
+      Era.transaction do
         begin
-          if @era.era_points >= @total
-            @era.update_attribute(:era_points,@era.era_points - @total)
-          elsif @era.era_points < @total
-            @era.update_attribute(:era_points,@total*@percentage)
-          end
+          @era.update_attribute(:era_points,@final)
         rescue ActiveRecord::RecordInvalid
-          format.html { redirect_to "/businesses" }
+          format.html { redirect_to "/card", notice: 'Ocurrio un Error' }
           #format.xml {render xml: 'pages/home'}
           raise ActiveRecord::Rollback
         end
@@ -50,11 +44,10 @@ class TransactionController < ApplicationController
       @transaction.points_aft = @era.era_points
 
       if @transaction.save
-        #TODO: Mandarlo a los detalles del cliente
-        format.html { redirect_to "/businesses/" + session[:current_business].to_s }
+        format.html { redirect_to "/card", notice: "Transaccion finalizada Satisfactoriamente" }
         #format.json { head :no_content }
       else
-        format.html { redirect_to "/main/account", notice: 'No tienes suficiente Saldo' }
+        format.html { redirect_to "/card", notice: 'Ocurrio un Error' }
         #format.json { render json: @startup.errors, status: :unprocessable_entity }
       end
 

@@ -1,8 +1,9 @@
 class MainController < ApplicationController
   def index
 
-    #Redirecciona en caso de que haya un usuario con o sin negocios
+#Redirecciona en caso de que haya un usuario con o sin negocios
     if current_user
+
       if current_user.businesses.any?
         respond_to do |format|
           format.html  { redirect_to "/card" }
@@ -14,10 +15,12 @@ class MainController < ApplicationController
           #format.json { render json: @empresas }
         end
       end
+
     else
       respond_to do |format|
         format.html # index.html.erb
       end
     end
   end
+
 end

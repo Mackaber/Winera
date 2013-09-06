@@ -13,14 +13,4 @@ class ApplicationController < ActionController::Base
     '/main/index'
   end
 
-  def set_current_business(biz)
-    @current_business = biz
-  end
-
-  def current_business
-    @current_business
-  end
-
-  helper_method :current_business
-
 end

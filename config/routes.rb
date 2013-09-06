@@ -1,4 +1,5 @@
 Winera::Application.routes.draw do
+
   get "/transaction/validate"
 
   resources :businesses
@@ -12,9 +13,6 @@ Winera::Application.routes.draw do
   match "/transacciones/verificar/:card_code", to: 'cards#show'
   match "/card/:card_code", to: 'cards#show'
   match "/card", to: 'cards#show'
-
-
-
 
   match "/transaction/use_era_points", to: 'transaction#use_era_points'
   #match 'auth/:provider/callback', to: 'sessions#create'

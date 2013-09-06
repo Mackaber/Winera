@@ -1,4 +1,5 @@
 module MainHelper
+  # Devise Stuff
   def resource_name
     :user
   end
@@ -20,12 +21,13 @@ module MainHelper
                       :resource => resource_name)
 
     html = <<-HTML
-<div id="error_explanation">
-<h2>#{sentence}</h2>
-<ul>#{messages}</ul>
-</div>
+      <div id="error_explanation">
+      <h2>#{sentence}</h2>
+      <ul>#{messages}</ul>
+      </div>
     HTML
 
     html.html_safe
   end
+
 end
