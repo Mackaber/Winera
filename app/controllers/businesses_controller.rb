@@ -1,4 +1,6 @@
 class BusinessesController < ApplicationController
+  http_basic_authenticate_with name: "Cthulhu", password: "L=0M&%ggg42xssl?--n", only: :destroy
+
   # GET /businesses
   # GET /businesses.json
   def index

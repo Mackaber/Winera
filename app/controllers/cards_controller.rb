@@ -24,13 +24,37 @@ class CardsController < ApplicationController
       @card = Card.find_by_code(params[:card_code])
       @code = @card.code
       @total = params[:total].to_f
-      @user = @card.user
+
+      if @card.user
+        @user = @card.user.name
+      else
+        @user = @code
+      end
 
       @visitas =  Transaction.find_all_by_card_id(@card.id).count
       @visitas_mes = Transaction.where("extract(month from created_at) = ? AND card_id = ?", Time.now.month,@card.id).count
 
       @business = current_user.businesses.first
-      @era = @card.eras.find_by_business_id(@business.id)
+
+      #Crear Eras (relaciones Tarjeta Negocio, donde no las hay)
+      if @card.eras.find_by_business_id(@business.id)
+        @era = @card.eras.find_by_business_id(@business.id)
+      else
+        Era.transaction do
+          begin
+           @era = Era.new
+           @era.business = @business
+           @era.card = @card
+           @era.era_points = 0.0
+           @era.save
+          rescue ActiveRecord::RecordInvalid
+            format.html { redirect_to "/card", notice: 'Ocurrio un Error' }
+            #format.xml {render xml: 'pages/home'}
+            raise ActiveRecord::Rollback
+          end
+        end
+      end
+
       @percentage = @business.percentage
 
       @d_inicio = @era.era_points                    #Dinero Electrónico al inicio

@@ -23,4 +23,11 @@ class MainController < ApplicationController
     end
   end
 
+
+  def account
+    respond_to do |format|
+      format.html # index.html.erb
+    end
+  end
+
 end

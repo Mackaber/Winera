@@ -5,6 +5,7 @@ Winera::Application.routes.draw do
   resources :businesses
 
   get "/main/index"
+  get "/main/account"
 
   match "/transaction", to: 'transaction#index'
   #Despues de encontrar la tarjeta la pone en cards/show
