@@ -1,4 +1,6 @@
 class CardsController < ApplicationController
+  include CardsHelper
+
   def show
     if params[:card_code]
       if Card.find_by_code(params[:card_code])
@@ -20,9 +22,11 @@ class CardsController < ApplicationController
   end
 
   def confirm
-    if Card.find_by_code(params[:card_code])
-      @card = Card.find_by_code(params[:card_code])
-      @code = @card.code
+    #Modificar el formato del codigo de ser necesario
+    @code = def_format(params[:card_code])
+    logger.info(@code)
+    if Card.find_by_code(@code)
+      @card = Card.find_by_code(@code)
       @total = params[:total].to_f
 
       if @card.user
@@ -58,14 +62,23 @@ class CardsController < ApplicationController
       @percentage = @business.percentage
 
       @d_inicio = @era.era_points                    #Dinero Electrónico al inicio
+      @function = params[:commit]
 
-      if @total >= @d_inicio
-        @d_usado  =  @d_inicio                       #Dinero Electrónico usado
-        @restante =  @total - @d_usado               #Restante por pagar
-      elsif @total < @d_inicio
-        @d_usado  =  @total                          #Dinero Electrónico usado
-        @restante = @d_usado - @total                #Restante por pagar
+      if  @function == "Usar Puntos"
+        if @total >= @d_inicio
+          @d_usado  =  @d_inicio                       #Dinero Electrónico usado
+          @restante =  @total - @d_usado               #Restante por pagar
+        elsif @total < @d_inicio
+          @d_usado  =  @total                          #Dinero Electrónico usado
+          @restante = @d_usado - @total                #Restante por pagar
+        end
+      elsif @function == "Abonar Puntos"
+        @d_usado = 0
+        @restante = @total
+      else
+        format.html { redirect_to "/card", notice: 'Ocurrio un Error' }
       end
+
       @generado = @restante*@percentage               #Dinero Electrónico generado
       @final    = @generado + (@d_inicio - @d_usado) #Dinero Electrónico al final
 
@@ -75,6 +88,7 @@ class CardsController < ApplicationController
       session[:card_code] = @code
       session[:total] = @total
 
+      session[:function] = params[:commit]
     else
       respond_to do |format|
           format.html { redirect_to "/card", notice: "No se encontro la Tarjeta" }

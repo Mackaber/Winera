@@ -1,6 +1,7 @@
 class TransactionController < ApplicationController
   #POST Validate
   def use_era_points
+    @function = session[:function]
     @code = session[:card_code]
     @total = session[:total]
 
@@ -13,13 +14,21 @@ class TransactionController < ApplicationController
 
     @d_inicio = @era.era_points                    #Dinero Electrónico al inicio
 
-    if @total >= @d_inicio
-      @d_usado  =  @d_inicio                       #Dinero Electrónico usado
-      @restante =  @total - @d_usado               #Restante por pagar
-    elsif @total < @d_inicio
-      @d_usado  =  @total                          #Dinero Electrónico usado
-      @restante = @d_usado - @total                #Restante por pagar
+    if  @function == "Usar Puntos"
+      if @total >= @d_inicio
+        @d_usado  =  @d_inicio                       #Dinero Electrónico usado
+        @restante =  @total - @d_usado               #Restante por pagar
+      elsif @total < @d_inicio
+        @d_usado  =  @total                          #Dinero Electrónico usado
+        @restante = @d_usado - @total                #Restante por pagar
+      end
+    elsif @function == "Abonar Puntos"
+      @d_usado = 0
+      @restante = @total
+    else
+      format.html { redirect_to "/card", notice: 'Ocurrio un Error' }
     end
+
     @generado = @restante*@percentage               #Dinero Electrónico generado
     @final    = @generado + (@d_inicio - @d_usado) #Dinero Electrónico al final
 
