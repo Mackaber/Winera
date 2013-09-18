@@ -25,6 +25,9 @@ class MainController < ApplicationController
 
 
   def account
+    @user = current_user
+    @eras = @user.eras
+
     respond_to do |format|
       format.html # index.html.erb
     end

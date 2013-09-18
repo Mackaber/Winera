@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable #, :confirmable
   has_many :businesses
   has_many :cards
+  # Sub level Association
+  has_many :eras, :through => :cards
 
   def self.from_omniauth(auth)
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|

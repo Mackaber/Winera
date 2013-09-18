@@ -1,6 +1,60 @@
 class CardsController < ApplicationController
   include CardsHelper
 
+  def register
+    if params[:card_code] && Card.find_by_code(def_format(params[:card_code]))
+      if !Card.find_by_code(def_format(params[:card_code])).user
+
+        @card = Card.find_by_code(def_format(params[:card_code]))
+        @user = current_user
+        @card.update_attribute(:user,@user)
+
+        respond_to do |format|
+          User.transaction do
+            begin
+              @user.update_attribute(:newuser,false)
+            rescue ActiveRecord::RecordInvalid
+              format.html { redirect_to "/main/account", notice: "Ocurrio un error" }
+              #format.xml {render xml: 'pages/home'}
+              raise ActiveRecord::Rollback
+            end
+          end
+
+          #En caso de que ya haya comprado con esa tarjeta antes de registrarla a un usuario existente
+          @card.eras.each do |e|
+            if @user.eras.where("business_id = ?",e.business_id).any?
+              @era = @user.eras.where("business_id = ?",e.business_id).first
+              Era.transaction do
+                begin
+                  @era.update_attribute(:era_points,e.era_points + @era.era_points)
+                  e.destroy
+                rescue ActiveRecord::RecordInvalid
+                  format.html { redirect_to "/main/account", notice: "Ocurrio un error" }
+                  #format.xml {render xml: 'pages/home'}
+                  raise ActiveRecord::Rollback
+                end
+              end
+            end
+          end
+
+          format.html { redirect_to "/main/account", notice: "Tarjeta Registrada Satisfactoriamente" }
+        end
+
+
+
+      else
+        respond_to do |format|
+          format.html { redirect_to "/main/account", notice: "Tarjeta Ya registrada" }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to "/main/account", notice: "No se encontro la Tarjeta" }
+      end
+    end
+
+  end
+
   def show
     if params[:card_code]
       if Card.find_by_code(params[:card_code])
