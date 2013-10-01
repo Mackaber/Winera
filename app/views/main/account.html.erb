@@ -67,7 +67,8 @@
         <br>
         <div style="text-align: center;" class="col-xs-7 col-md-7">
           <h4><%= @user.name %></h4>
-          <small>San Luis Potosí</small><br><br>
+          <!-- TODO: LOS DEFAULTS CHAVO; LOS DEFAULTS!-->
+          <small><%= @user.try(:city_state) %></small><br><br>
           <!--<div class="btn-group">-->
             <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">-->
               <!--Cambiar empresa <span class="caret"></span>-->
@@ -88,8 +89,5 @@
       </div>
     </div>
 
-    <div class="col-md-12">
-        <%= render "businesses_list" %>
-    </div>
 <% end %>
 

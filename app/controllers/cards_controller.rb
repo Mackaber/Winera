@@ -1,10 +1,10 @@
 class CardsController < ApplicationController
   include CardsHelper
 
+  #Registra el código de una tarjeta
   def register
     if params[:card_code] && Card.find_by_code(def_format(params[:card_code]))
       if !Card.find_by_code(def_format(params[:card_code])).user
-
         @card = Card.find_by_code(def_format(params[:card_code]))
         @user = current_user
         @card.update_attribute(:user,@user)
