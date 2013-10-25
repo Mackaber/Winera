@@ -28,7 +28,8 @@ class User < ActiveRecord::Base
       user.last_name = auth.info.last_name
       user.image = auth.info.image
       #---------------------------------------
-      user.city_state = auth.extra.raw_info.location.name
+      #TODO: Arreglar y checar
+      #user.city_state = auth.extra.raw_info.location.name
       user.birthday = auth.extra.raw_info.birthday
       user.sex = auth.extra.raw_info.gender
 
