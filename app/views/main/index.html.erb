@@ -33,11 +33,11 @@
       <br>
       <div class="row">
           <div class="col-md-6">
-            <%= f.submit "Registrarme", :class => "form-control btn btn-md btn-primary col-xs-12" %>
+            <%= f.submit "Registrarme", :class => "form-control btn btn-md btn-primary col-xs-12", :onclick => "mixpanel.track('Usuario Registrado',{'metodo':'correo'});" %>
           </div>
           <div class="col-md-6">
           <!--TODO: Validar!-->
-              <a href="/users/auth/facebook" class="col-xs-12 zocial facebook" style="margin-top: 2px; font-size: 13px;">
+              <a href="/users/auth/facebook" class="col-xs-12 zocial facebook" style="margin-top: 2px; font-size: 13px;" onclick="mixpanel.track('Usuario Registrado',{'metodo':'facebook'});">
                <!--Si se pone como boton, lo cuenta como el del form-->
                   Registrarme
               </a>

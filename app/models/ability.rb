@@ -7,7 +7,7 @@ class Ability
 
     #TODO: Definir De manera correcta CanCan y las habilidades de los usuarios y del admin
        user ||= User.new # guest user (not logged in)
-       if user.role = "GOD"
+       if user.role == "GOD"
          can :manage, :all
        else
          if user.role == "bizowner"
@@ -18,6 +18,8 @@ class Ability
            can destroy, Empresa do |empresa|
              empresa.try(:user) == user
            end
+         else
+
          end
        end
     #
