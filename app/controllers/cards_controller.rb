@@ -3,6 +3,7 @@ class CardsController < ApplicationController
 
   #Registra el código de una tarjeta
   def register
+    authorize! :register, @card
     if params[:card_code] && Card.find_by_code(def_format(params[:card_code]))
       if !Card.find_by_code(def_format(params[:card_code])).user
         @card = Card.find_by_code(def_format(params[:card_code]))
@@ -56,6 +57,7 @@ class CardsController < ApplicationController
   end
 
   def show
+    authorize! :show, @card
     if params[:card_code]
       if Card.find_by_code(params[:card_code])
         @card_code = Card.find_by_code(params[:card_code]).code
@@ -76,6 +78,7 @@ class CardsController < ApplicationController
   end
 
   def confirm
+    authorize! :confirm, @card
     #Modificar el formato del codigo de ser necesario
     @code = def_format(params[:card_code])
     logger.info(@code)

@@ -13,4 +13,11 @@ class ApplicationController < ActionController::Base
     '/main/index'
   end
 
+  #TODO: Por alguna razon esto no funciona como debería...
+  rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |format|
+      format.html { redirect_to root_url, notice: exception.message }
+    end
+  end
+
 end

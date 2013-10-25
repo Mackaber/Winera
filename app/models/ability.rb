@@ -11,15 +11,17 @@ class Ability
          can :manage, :all
        else
          if user.role == "bizowner"
-           can :create, Empresa
-           can :update, Empresa do |empresa|
-             empresa.try(:user) == user
+           can :show
+           can :confirm
+           can :create, Business
+           can :update, Business do |business|
+             business.try(:user) == user
            end
-           can destroy, Empresa do |empresa|
-             empresa.try(:user) == user
+           can :destroy, Business do |business|
+             business.try(:user) == user
            end
          else
-
+           can :register
          end
        end
     #

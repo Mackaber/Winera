@@ -1,5 +1,6 @@
 class BusinessesController < ApplicationController
   http_basic_authenticate_with name: "Cthulhu", password: "L=0M&%ggg42xssl?--n", only: :destroy
+  load_and_authorize_resource
 
   # GET /businesses
   # GET /businesses.json
