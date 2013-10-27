@@ -1,6 +1,6 @@
 Cloudinary.config do |config|
   config.cloud_name = 'winera'
-  config.api_key = '249499751235329'
-  config.api_secret = 'KyaGowcZdKuEkmxZF4B1MpavNA0'
+  config.api_key = ENV['cloudinary_key']
+  config.api_secret = ENV['cloudinary_secret']
   config.cdn_subdomain = true
 end
