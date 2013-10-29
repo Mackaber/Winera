@@ -34,6 +34,10 @@ module Winera
     # config.i18n.default_locale = :de
 
     # Configure the default encoding used in templates for Ruby 1.9.
+
+    # From https://devcenter.heroku.com/articles/rails-asset-pipeline
+    config.assets.initialize_on_precompile = false
+
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
