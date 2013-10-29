@@ -4,6 +4,10 @@
 <% if current_user.newuser? %>
     <script>
         $('#myModal').modal('toggle')
+        mixpanel.track('Registro terminado');
+        <%if flash[:notice] %>
+            mixpanel.track('<%= flash[:notice] %>');
+        <% end %>
     </script>
     <div class="row">
       <div class="col-md-8">
