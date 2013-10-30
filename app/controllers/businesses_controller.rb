@@ -1,5 +1,4 @@
 class BusinessesController < ApplicationController
-  http_basic_authenticate_with name: "Cthulhu", password: "L=0M&%ggg42xssl?--n", only: :destroy
   load_and_authorize_resource
 
   # GET /businesses
@@ -62,7 +61,6 @@ class BusinessesController < ApplicationController
   # PUT /businesses/1
   # PUT /businesses/1.json
   def update
-    @business = Business.find(params[:id])
 
     respond_to do |format|
       if @business.update_attributes(params[:business])
@@ -84,6 +82,20 @@ class BusinessesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to businesses_url }
       format.json { head :no_content }
+    end
+  end
+
+ # TODO: Implementar esto por CANCAN
+  def update_admin
+    @business = Business.find(params[:business_id])
+    @admin = User.find_by_email(params[:user_mail])
+
+    if current_user.role == "GOD"
+      @business.update_attribute(:user,@admin)
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @business }
     end
   end
 

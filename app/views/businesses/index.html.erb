@@ -2,6 +2,12 @@
     <div class="row-fluid well well-small">
             <%= link_to b.name, b, :class => "span10" %>
             <%= image_tag b.image, :style => "width:100px", :class => "span2" %>
+            <% if can? :update, b %>
+                <%= link_to "Editar", edit_business_path(b)  %>
+            <% end %>
+            <% if can? :destroy, b %>
+                <%= link_to "Eliminar", b, :method => "delete" %>
+            <% end %>
     </div>
 <% end %>
 

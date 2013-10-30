@@ -15,3 +15,20 @@
   <%= image_tag @business.image, :class => "span4" %>
 </div>
 <br>
+
+<% if current_user.role == "GOD" %>
+    <div>
+      <h4>Current Owner</h4>
+      <p><%= @business.user.name %></p>
+    </div>
+    <%= form_tag("/businesses/update_admin", method: "post", :role => "form") do %>
+        <%= label_tag(:user_mail, "Actualizar Dueño (por mail)") %><br />
+        <%= text_field_tag(:user_mail) %><br />
+        <%= hidden_field_tag(:business_id, @business.id) %>
+        <%= submit_tag("Actualizar Admin")  %>
+    <% end %>
+<% end %>
+<br />
+<%= link_to 'Show', edit_business_path(@business) %> |
+<%= link_to 'Back', businesses_path %>
+<br />
