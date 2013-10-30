@@ -91,6 +91,13 @@ class BusinessesController < ApplicationController
     @admin = User.find_by_email(params[:user_mail])
 
     if current_user.role == "GOD"
+      User.transaction do
+        begin
+          @admin.update_attribute(:role,"bizowner")
+        rescue ActiveRecord::RecordInvalid
+          raise ActiveRecord::Rollback
+        end
+      end
       @business.update_attribute(:user,@admin)
     end
 
