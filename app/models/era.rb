@@ -23,6 +23,6 @@ class Era < ActiveRecord::Base
 
   def levelup!
     self.update_attribute(:level,self.level += 1)
-    flash[:notice] = "Felicidades Has Subido de Nível, ahora tu nivel es" + self.level
+    # TODO: Send Notifications
   end
 end
