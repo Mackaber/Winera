@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130820173420) do
+ActiveRecord::Schema.define(:version => 20131212191648) do
 
   create_table "businesses", :force => true do |t|
     t.string   "name"
@@ -24,9 +24,14 @@ ActiveRecord::Schema.define(:version => 20130820173420) do
     t.decimal  "lat"
     t.decimal  "long"
     t.text     "schedule"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.decimal  "percentage"
+    t.decimal  "lvl1_prc",    :default => 0.05
+    t.decimal  "lvl2_prc",    :default => 0.05
+    t.decimal  "lvl3_prc",    :default => 0.05
+    t.decimal  "lvl4_prc",    :default => 0.05
+    t.decimal  "lvl5_prc",    :default => 0.05
   end
 
   add_index "businesses", ["user_id"], :name => "index_businesses_on_user_id"
@@ -44,8 +49,10 @@ ActiveRecord::Schema.define(:version => 20130820173420) do
     t.integer  "business_id"
     t.decimal  "era_points"
     t.integer  "card_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.integer  "exp",         :default => 0
+    t.integer  "level",       :default => 1
   end
 
   add_index "eras", ["business_id"], :name => "index_eras_on_business_id"
@@ -61,10 +68,12 @@ ActiveRecord::Schema.define(:version => 20130820173420) do
     t.decimal  "total"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "era_id"
   end
 
   add_index "transactions", ["business_id"], :name => "index_transactions_on_business_id"
   add_index "transactions", ["card_id"], :name => "index_transactions_on_card_id"
+  add_index "transactions", ["era_id"], :name => "index_transactions_on_era_id"
   add_index "transactions", ["user_id"], :name => "index_transactions_on_user_id"
 
   create_table "users", :force => true do |t|

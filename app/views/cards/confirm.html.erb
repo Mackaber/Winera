@@ -5,7 +5,7 @@
   </div>
   <div class="row">
     <div style="text-align: center;" class="col-md-6">
-        <h5>Nível: 1 = 10% </h5>
+        <h5>Nível: <%= @era.level %> = <%= (@business.lvl_prc(@era.level)*100).round(1) %>%</h5>
         <h5>Número de Visitas:  <%= @visitas %></h5>
         <h5>Número de Visitas este mes:  <%= @visitas_mes %></h5>
     </div>

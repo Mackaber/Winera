@@ -10,7 +10,9 @@ class TransactionController < ApplicationController
     @business = current_user.businesses.first
 
     @era = @card.eras.find_by_business_id(@business.id)
-    @percentage = @business.percentage
+
+    # Percentage According to the level
+    @percentage = @business.lvl_prc(@era.level)
 
     @d_inicio = @era.era_points                    #Dinero Electrónico al inicio
 
@@ -32,10 +34,14 @@ class TransactionController < ApplicationController
     @generado = @restante*@percentage               #Dinero Electrónico generado
     @final    = @generado + (@d_inicio - @d_usado) #Dinero Electrónico al final
 
+    # The last transaction before the new is added, for comparison
+    @last_transaction = @era.transactions.last
+
     @transaction = Transaction.new
     @transaction.business = @business
     @transaction.card = @card
     @transaction.user = @card.user
+    @transaction.era = @era
     @transaction.points_bef = @d_inicio
     @transaction.total = @total
 
@@ -54,6 +60,24 @@ class TransactionController < ApplicationController
 
       if @transaction.save
         format.html { redirect_to "/card", notice: "Transaccion finalizada Satisfactoriamente" }
+
+        # Check for events
+
+        # Add Exp for the visit
+        @era.add_exp(5)
+
+        # First Visit
+        if @era.transactions.count < 1
+          @era.add_exp(5)
+        end
+
+        # More than 1 visit in the month
+        if @last_transaction.created_at.month == @era.transactions.last.created_at.month
+          @era.add_exp(5)
+        end
+
+        # More than the Business Goal
+
         #format.json { head :no_content }
       else
         format.html { redirect_to "/card", notice: 'Ocurrio un Error' }
