@@ -72,11 +72,14 @@ class TransactionController < ApplicationController
         end
 
         # More than 1 visit in the month
-        if @last_transaction.created_at.month == @era.transactions.last.created_at.month
-          @era.add_exp(5)
+        if @last_transaction
+          if @last_transaction.created_at.month == @era.transactions.last.created_at.month
+            @era.add_exp(5)
+          end
         end
 
         # More than the Business Goal
+        # TODO (Obviously)
 
         #format.json { head :no_content }
       else
