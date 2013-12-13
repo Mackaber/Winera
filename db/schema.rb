@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131212191648) do
+ActiveRecord::Schema.define(:version => 20131212225542) do
 
   create_table "businesses", :force => true do |t|
     t.string   "name"
@@ -24,14 +24,15 @@ ActiveRecord::Schema.define(:version => 20131212191648) do
     t.decimal  "lat"
     t.decimal  "long"
     t.text     "schedule"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.decimal  "percentage"
     t.decimal  "lvl1_prc",    :default => 0.05
     t.decimal  "lvl2_prc",    :default => 0.05
     t.decimal  "lvl3_prc",    :default => 0.05
     t.decimal  "lvl4_prc",    :default => 0.05
     t.decimal  "lvl5_prc",    :default => 0.05
+    t.decimal  "goal",        :default => 500.0
   end
 
   add_index "businesses", ["user_id"], :name => "index_businesses_on_user_id"

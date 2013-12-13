@@ -42,11 +42,45 @@
     <!--<%# f.text_area :schedule %>-->
   <!--</div>-->
     <div class="field">
-      <%= f.label :percentage, "Porcentaje Otorgado" %><br />
-      <%= f.text_field :percentage %>
+      <%= f.label :goal, "Venta Meta:" %><br />
+      <%= f.text_field :goal %>
     </div>
+
+    <div class="field">
+      <%= f.label :lvl1_prc, "Porcentaje para en nível 1:" %><br />
+      <%= f.text_field :lvl1_prc %>
+    </div>
+    <div class="field">
+      <%= f.label :lvl2_prc, "Porcentaje para en nível 2:" %><br />
+      <%= f.text_field :lvl2_prc %>
+    </div>
+    <div class="field">
+      <%= f.label :lvl3_prc, "Porcentaje para en nível 3:" %><br />
+      <%= f.text_field :lvl3_prc %>
+    </div>
+    <div class="field">
+      <%= f.label :lvl4_prc, "Porcentaje para en nível 4:" %><br />
+      <%= f.text_field :lvl4_prc %>
+    </div>
+    <div class="field">
+      <%= f.label :lvl5_prc, "Porcentaje para en nível 5:" %><br />
+      <%= f.text_field :lvl5_prc %>
+    </div>
+    <br>
+
 
   <div class="actions">
     <%= f.submit %>
   </div>
+   <!-- TODO: Convertir los Porcentajes en Range-->
+  <script>
+    function CheckValue() {
+        $('#lvl1_prc_range').html($('#business_lvl1_range').val() + "%");
+        $('#lvl2_prc_range').html($('#business_lvl2_range').val() + "%");
+        $('#lvl3_prc_range').html($('#business_lvl3_range').val() + "%");
+        $('#lvl4_prc_range').html($('#business_lvl4_range').val() + "%");
+        $('#lvl5_prc_range').html($('#business_lvl5_range').val() + "%");
+    }
+  </script>
 <% end %>
+

@@ -62,24 +62,29 @@ class TransactionController < ApplicationController
         format.html { redirect_to "/card", notice: "Transaccion finalizada Satisfactoriamente" }
 
         # Check for events
+        # Solo Eventos al día
+        if @last_transaction.created_at.day != @era.transactions.last.created_at.day
 
-        # Add Exp for the visit
-        @era.add_exp(5)
-
-        # First Visit
-        if @era.transactions.count < 1
+          # Add Exp for the visit
           @era.add_exp(5)
-        end
 
-        # More than 1 visit in the month
-        if @last_transaction
-          if @last_transaction.created_at.month == @era.transactions.last.created_at.month
+          # First Visit
+          if @era.transactions.count < 2
             @era.add_exp(5)
           end
-        end
 
-        # More than the Business Goal
-        # TODO (Obviously)
+          # More than 1 visit in the month
+          if @last_transaction
+            if @last_transaction.created_at.month == @era.transactions.last.created_at.month
+              @era.add_exp(5)
+            end
+          end
+
+          # More than the Business Goal
+          if @total > @business.goal
+            @era.add_exp(10)
+          end
+        end
 
         #format.json { head :no_content }
       else
