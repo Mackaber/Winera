@@ -116,7 +116,8 @@ class CardsController < ApplicationController
         end
       end
 
-      @percentage = @business.percentage
+      # Percentage According to the level
+      @percentage = @business.lvl_prc(@era.level)
 
       @d_inicio = @era.era_points                    #Dinero Electrónico al inicio
       @function = params[:commit]
