@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   # Sub level Association
   has_many :eras, :through => :cards
 
+  has_many :messages
+
+
   def self.from_omniauth(auth)
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
       user.provider = auth.provider

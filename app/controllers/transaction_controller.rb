@@ -67,6 +67,8 @@ class TransactionController < ApplicationController
 
           # Add Exp for the visit
           @era.add_exp(5)
+          #Pendiente!
+          #@transaction.add_event(Event.find_by_description(""))
 
           # First Visit
           if @era.transactions.count < 2

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131212225542) do
+ActiveRecord::Schema.define(:version => 20131218000148) do
 
   create_table "businesses", :force => true do |t|
     t.string   "name"
@@ -58,6 +58,35 @@ ActiveRecord::Schema.define(:version => 20131212225542) do
 
   add_index "eras", ["business_id"], :name => "index_eras_on_business_id"
   add_index "eras", ["card_id"], :name => "index_eras_on_card_id"
+
+  create_table "events", :force => true do |t|
+    t.text     "description", :default => ""
+    t.integer  "exp_gain",    :default => 5
+    t.boolean  "condition",   :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "messages", :force => true do |t|
+    t.string   "content",    :default => ""
+    t.boolean  "seen",       :default => false
+    t.string   "link",       :default => "http://app.winero.mx"
+    t.integer  "user_id"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+  end
+
+  add_index "messages", ["user_id"], :name => "index_messages_on_user_id"
+
+  create_table "summaries", :force => true do |t|
+    t.integer  "transaction_id"
+    t.integer  "event_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "summaries", ["event_id"], :name => "index_summaries_on_event_id"
+  add_index "summaries", ["transaction_id"], :name => "index_summaries_on_transaction_id"
 
   create_table "transactions", :force => true do |t|
     t.string   "points_type"

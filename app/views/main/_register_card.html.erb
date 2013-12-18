@@ -3,7 +3,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <% unless current_user.newuser? %>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <% end %>
         <h4 class="modal-title">Registrar Tarjeta/Número de Celular</h4>
       </div>
       <div class="modal-body">
