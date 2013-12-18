@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  description: MyText
+  exp_gain: 1
+  condition: false
+
+two:
+  description: MyText
+  exp_gain: 1
+  condition: false
