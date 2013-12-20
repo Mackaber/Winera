@@ -1,6 +1,8 @@
 class CardsController < ApplicationController
   include CardsHelper
 
+  # Se añade .where("prepaid != true") para verificar que las visitas no fueron por precargas
+
   #Registra el código de una tarjeta
   def register
     authorize! :register, @card
@@ -92,8 +94,8 @@ class CardsController < ApplicationController
         @user = @code
       end
 
-      @visitas =  Transaction.find_all_by_card_id(@card.id).count
-      @visitas_mes = Transaction.where("extract(month from created_at) = ? AND card_id = ?", Time.now.month,@card.id).count
+      @visitas =  Transaction.where("prepaid != true").find_all_by_card_id(@card.id).count
+      @visitas_mes = Transaction.where("prepaid != true").where("extract(month from created_at) = ? AND card_id = ?", Time.now.month,@card.id).count
 
       @business = current_user.businesses.first
 
@@ -133,6 +135,10 @@ class CardsController < ApplicationController
       elsif @function == "Abonar Puntos"
         @d_usado = 0
         @restante = @total
+      elsif @function == "Precargar Tarjeta"
+        @d_usado = 0
+        @restante = 0
+        @d_inicio = @total
       else
         format.html { redirect_to "/card", notice: 'Ocurrio un Error' }
       end

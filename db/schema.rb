@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131218000148) do
+ActiveRecord::Schema.define(:version => 20131220151202) do
 
   create_table "businesses", :force => true do |t|
     t.string   "name"
@@ -91,14 +91,15 @@ ActiveRecord::Schema.define(:version => 20131218000148) do
   create_table "transactions", :force => true do |t|
     t.string   "points_type"
     t.decimal  "points_bef"
-    t.string   "points_aft"
     t.integer  "user_id"
     t.integer  "card_id"
     t.integer  "business_id"
     t.decimal  "total"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.integer  "era_id"
+    t.decimal  "points_aft"
+    t.boolean  "prepaid",     :default => false
   end
 
   add_index "transactions", ["business_id"], :name => "index_transactions_on_business_id"
