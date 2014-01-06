@@ -29,19 +29,23 @@ class TransactionController < ApplicationController
         @d_usado  =  @total                          #Dinero Electrónico usado
         @restante = @d_usado - @total                #Restante por pagar
       end
+
+      @generado = @restante*@percentage               #Dinero Electrónico generado
     elsif @function == "Abonar Puntos"
       @d_usado = 0
       @restante = @total
+
+      @generado = @restante*@percentage               #Dinero Electrónico generado
     elsif @function == "Precargar Tarjeta"
       @d_usado = 0
       @restante = 0
       @prepaid = true
-      @d_inicio = @total
+
+      @generado = @total                              #Dinero Electrónico generado
     else
       format.html { redirect_to "/card", notice: 'Ocurrio un Error' }
     end
 
-    @generado = @restante*@percentage               #Dinero Electrónico generado
     @final    = @generado + (@d_inicio - @d_usado)  #Dinero Electrónico al final
 
     # The last transaction before the new is added, for comparison
