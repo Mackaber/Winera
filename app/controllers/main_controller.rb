@@ -1,10 +1,9 @@
 class MainController < ApplicationController
 
-  def redirect
-    if current_user
-      redirect_to main_index_path
-    else
-      redirect_to "http://get.winero.mx"
+  def landing
+    respond_to do |format|
+      format.html
+      #format.json { render json: @empresas }
     end
   end
 
@@ -26,9 +25,7 @@ class MainController < ApplicationController
       end
 
     else
-      respond_to do |format|
-        format.html # index.html.erb
-      end
+      redirect_to landing_path
     end
   end
 

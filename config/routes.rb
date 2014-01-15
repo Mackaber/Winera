@@ -1,5 +1,6 @@
 Winera::Application.routes.draw do
 
+  match '/landing', :to => redirect('/landing.html')
   get "/transaction/validate"
 
   resources :businesses
@@ -78,8 +79,8 @@ Winera::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  match '', to: 'main#index', constraints: {subdomain: 'app'}
-  root :to => 'main#redirect'
+  #match '', to: 'main#index', constraints: {subdomain: 'app'}
+  root :to => 'main#index'
 
   # See how all your routes lay out with "rake routes"
 
