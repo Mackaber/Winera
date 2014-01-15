@@ -4,7 +4,7 @@ class MainController < ApplicationController
     if current_user
       redirect_to main_index_path
     else
-      redirect_to "get.winero.mx"
+      redirect_to "http://get.winero.mx"
     end
   end
 
