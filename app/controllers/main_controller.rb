@@ -1,7 +1,16 @@
 class MainController < ApplicationController
-  def index
 
-#Redirecciona en caso de que haya un usuario con o sin negocios
+  def redirect
+    if current_user
+      redirect_to main_index_path
+    else
+      redirect_to "get.winero.mx"
+    end
+  end
+
+
+  def index
+    #Redirecciona en caso de que haya un usuario con o sin negocios
     if current_user
 
       if current_user.businesses.any?
