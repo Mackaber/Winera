@@ -4,10 +4,7 @@ class MainController < ApplicationController
     if current_user
       redirect_to main_index_path
     else
-      respond_to do |format|
-        format.html
-        #format.json { render json: @empresas }
-      end
+      redirect_to "http://get.winero.mx"
     end
   end
 
