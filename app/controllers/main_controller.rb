@@ -1,9 +1,13 @@
 class MainController < ApplicationController
 
   def landing
-    respond_to do |format|
-      format.html
-      #format.json { render json: @empresas }
+    if current_user
+      redirect_to main_index_path
+    else
+      respond_to do |format|
+        format.html
+        #format.json { render json: @empresas }
+      end
     end
   end
 
@@ -11,7 +15,6 @@ class MainController < ApplicationController
   def index
     #Redirecciona en caso de que haya un usuario con o sin negocios
     if current_user
-
       if current_user.businesses.any?
         respond_to do |format|
           format.html  { redirect_to "/card" }
@@ -23,9 +26,6 @@ class MainController < ApplicationController
           #format.json { render json: @empresas }
         end
       end
-
-    else
-      redirect_to landing_path
     end
   end
 
