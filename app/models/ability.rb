@@ -22,6 +22,7 @@ class Ability
            end
          else
            can :register
+           can :show, Card
          end
        end
     #

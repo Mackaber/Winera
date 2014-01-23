@@ -59,17 +59,21 @@ class CardsController < ApplicationController
   end
 
   def show
-    authorize! :show, @card
     if params[:card_code]
-      if Card.find_by_code(params[:card_code])
-        @card_code = Card.find_by_code(params[:card_code]).code
-        respond_to do |format|
-          format.html # show.html.erb
+      if current_user.try(:role) == "bizowner"
+        if Card.find_by_code(params[:card_code])
+          @card_code = Card.find_by_code(params[:card_code]).code
+          respond_to do |format|
+            format.html # show.html.erb
+          end
+        else
+          respond_to do |format|
+            format.html { redirect_to "/card", notice: "No se encontro la Tarjeta" }
+          end
         end
       else
-        respond_to do |format|
-          format.html { redirect_to "/card", notice: "No se encontro la Tarjeta" }
-        end
+        session[:new_card] = params[:card_code]
+        redirect_to main_index_path
       end
     else
       @card_code = ""

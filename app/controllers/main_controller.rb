@@ -31,6 +31,8 @@ class MainController < ApplicationController
     @user = current_user
     @eras = @user.eras
 
+    @card_code = Card.find_by_code(session[:new_card]).code
+    session[:new_card] = ""
     respond_to do |format|
       format.html # index.html.erb
     end
