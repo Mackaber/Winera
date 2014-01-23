@@ -59,8 +59,9 @@ class CardsController < ApplicationController
   end
 
   def show
-    if params[:card_code]
-      if current_user.try(:role) == "bizowner"
+    # Para el panel de Tarjetas
+    if current_user.try(:role) == "bizowner"
+      if params[:card_code]
         if Card.find_by_code(params[:card_code])
           @card_code = Card.find_by_code(params[:card_code]).code
           respond_to do |format|
@@ -72,14 +73,16 @@ class CardsController < ApplicationController
           end
         end
       else
+        @card_code = ""
+        respond_to do |format|
+          format.html # show.html.erb
+        end
+      end
+    else # Si no es dueño de algun negocio que busque la tarjeta para que la registre
+      if params[:card_code]
         session[:new_card] = params[:card_code]
-        redirect_to main_index_path
       end
-    else
-      @card_code = ""
-      respond_to do |format|
-        format.html # show.html.erb
-      end
+      redirect_to main_index_path
     end
   end
 
