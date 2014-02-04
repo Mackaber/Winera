@@ -1,6 +1,7 @@
 class Business < ActiveRecord::Base
   belongs_to :user
   has_many :cards
+  has_many :transactions
   attr_accessible :category, :description, :image, :lat, :long, :name, :phone, :schedule, :streetadr, :percentage, :goal,
                   :lvl1_prc,:lvl2_prc,:lvl3_prc,:lvl4_prc,:lvl5_prc
 

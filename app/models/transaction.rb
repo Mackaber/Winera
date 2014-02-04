@@ -17,4 +17,13 @@ class Transaction < ActiveRecord::Base
     @summary.update_attribute(:event, event)
     @summary.update_attribute(:transaction, self)
   end
+
+  # Devuelve la respuesta del prepago en español
+  def prepago?
+    if self.prepaid?
+      "SI"
+    else
+      "NO"
+    end
+  end
 end

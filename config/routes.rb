@@ -3,12 +3,13 @@ Winera::Application.routes.draw do
   match '/landing', :to => redirect('/landing.html')
   get "/transaction/validate"
 
+  match "/businesses/history", to: "businesses#history"
+  match "/businesses/update_admin", to: 'businesses#update_admin'
+
   resources :businesses
 
   get "/main/index"
   get "/main/account"
-
-  match "/businesses/update_admin", to: 'businesses#update_admin'
 
   match "/transaction", to: 'transaction#index'
   #Despues de encontrar la tarjeta la pone en cards/show

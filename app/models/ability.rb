@@ -20,6 +20,7 @@ class Ability
            can :destroy, Business do |business|
              business.try(:user) == user
            end
+           can :history, Business
          else
            can :register
            can :show, Card

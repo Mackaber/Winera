@@ -106,4 +106,9 @@ class BusinessesController < ApplicationController
     end
   end
 
+  def history
+    @business = current_user.businesses.first
+    @transactions = @business.transactions
+  end
+
 end

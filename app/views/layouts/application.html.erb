@@ -39,8 +39,9 @@
                           <a href="http://getbootstrap.com/examples/jumbotron/#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.name %> <b class="caret"></b></a>
                           <ul class="dropdown-menu">
                             <%if current_user.businesses.any? %>
-                                <li><a href="#">Ver Historial</a></li>
-                                <li><a href="#">Aclaraciones</a></li>
+                                <li><a href="/card">Registrar Tarjetas</a></li>
+                                <li><a href="/businesses/history">Ver Historial</a></li>
+                                <!--<li><a href="#">Aclaraciones</a></li>-->
                             <% else %>
                                 <li><a data-toggle="modal" href="#myModal" >Registrar Tarjeta</a></li>
                             <% end %>
