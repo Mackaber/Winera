@@ -108,7 +108,7 @@ class BusinessesController < ApplicationController
 
   def history
     @business = current_user.businesses.first
-    @transactions = @business.transactions
+    @transactions = @business.transactions.order('created_at DESC')
   end
 
 end
