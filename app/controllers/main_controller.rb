@@ -1,12 +1,12 @@
 class MainController < ApplicationController
 
-  def landing
-    if current_user
-      redirect_to main_index_path
-    else
-      redirect_to "http://get.winero.mx"
-    end
-  end
+  #def landing
+  #  if current_user
+  #    redirect_to main_index_path
+  #  else
+  #    redirect_to "http://get.winero.mx"
+  #  end
+  #end
 
 
   def index
