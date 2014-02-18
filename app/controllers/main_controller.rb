@@ -17,6 +17,11 @@ class MainController < ApplicationController
           format.html  { redirect_to "/card" }
           #format.json { render json: @empresas }
         end
+      elsif current_user.role == "GOD"
+        respond_to do |format|
+          format.html  { redirect_to "/businesses" }
+          #format.json { render json: @empresas }
+        end
       else
         respond_to do |format|
           format.html  { redirect_to "/main/account" }
