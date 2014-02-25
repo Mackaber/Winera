@@ -6,6 +6,8 @@ class Era < ActiveRecord::Base
   has_many :transactions
   attr_accessible :era_points,:exp,:level
 
+  #V-------------------------------------Levels Methods------------------------------------------V
+
   def add_exp(exp)
     self.update_attribute(:exp, self.exp += exp)
 

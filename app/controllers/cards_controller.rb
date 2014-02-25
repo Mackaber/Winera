@@ -157,8 +157,8 @@ class CardsController < ApplicationController
 
       @final    = @generado + (@d_inicio - @d_usado) #Dinero Electrónico al final
 
-      #TODO: CORREGIR ESTO QUE YA ME FASTIDIO
-      #Solucion temporal, usar variables de sesion (ni modo)
+      # TODO: CORREGIR ESTO QUE YA ME FASTIDIO
+      # Solucion temporal, usar variables de sesion (ni modo)
 
       session[:card_code] = @code
       session[:total] = @total

@@ -11,6 +11,8 @@ Winera::Application.routes.draw do
   get "/main/index"
   get "/main/account"
 
+  get "/main/new_index"
+
   match "/transaction", to: 'transaction#index'
   #Despues de encontrar la tarjeta la pone en cards/show
   match "/card/confirm", to: 'cards#confirm'

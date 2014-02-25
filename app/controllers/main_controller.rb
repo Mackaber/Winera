@@ -7,7 +7,9 @@ class MainController < ApplicationController
   #    redirect_to "http://get.winero.mx"
   #  end
   #end
+  def new_index
 
+  end
 
   def index
     #Redirecciona en caso de que haya un usuario con o sin negocios

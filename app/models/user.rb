@@ -17,10 +17,14 @@ class User < ActiveRecord::Base
 
   has_many :messages
 
+  #V-------------------------------------Identity Methods------------------------------------------V
+
+  # Checks if the user is a business owner
   def business_owner?
     self.role == 'bizowner'
   end
 
+  #V-------------------------------------Omniauth Methods------------------------------------------V
 
   def self.from_omniauth(auth)
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
