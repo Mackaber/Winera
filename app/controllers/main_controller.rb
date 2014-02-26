@@ -7,9 +7,6 @@ class MainController < ApplicationController
   #    redirect_to "http://get.winero.mx"
   #  end
   #end
-  def new_index
-
-  end
 
   def index
     #Redirecciona en caso de que haya un usuario con o sin negocios
@@ -30,7 +27,12 @@ class MainController < ApplicationController
           #format.json { render json: @empresas }
         end
       end
+    else
+      redirect_to "/landing.html"
     end
+  end
+
+  def login
   end
 
 
@@ -43,7 +45,7 @@ class MainController < ApplicationController
       session[:new_card] = ""
     end
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # login.html.erb
     end
   end
 

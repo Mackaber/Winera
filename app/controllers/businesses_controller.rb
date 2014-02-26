@@ -7,7 +7,7 @@ class BusinessesController < ApplicationController
     @businesses = Business.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # login.html.erb
       format.json { render json: @businesses }
     end
   end
